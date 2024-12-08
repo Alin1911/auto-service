@@ -22,22 +22,19 @@ services:
             - laravel
 
     mysql:
-        platform: linux/amd64
-        image: mysql
+        image: mysql:latest
         container_name: mysql
         restart: unless-stopped
         tty: true
         ports: 
             - "${MYSQL_HOST_PORT}:${MYSQL_DOCKER_CONTAINER_PORT}"
         volumes: 
-            - ./mysql:/var/lib/mysql
+            - ./mysql:/var/lib/data
         environment: 
             MYSQL_DATABASE: laravel_docker
             MYSQL_USER: user
             MYSQL_PASSWORD: user
             MYSQL_ROOT_PASSWORD: root
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
         networks: 
             - laravel
 
@@ -55,3 +52,19 @@ services:
             - "${PHP_HOST_PORT}:${PHP_DOCKER_CONTAINER_PORT}"
         networks: 
             - laravel
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: phpmyadmin
+        restart: unless-stopped
+        environment:
+            PMA_HOST: mysql
+            PMA_USER: user
+            PMA_PASSWORD: user
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8080:80"
+        networks:
+            - laravel
+        depends_on:
+            - mysql

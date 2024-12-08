@@ -1,22 +1,3 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <img src="https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/assets/49280352/cb88bac9-2517-41fe-805e-b81423e64eca" alt="cover" align="center">
-  <h3 align="center">Docker Laravel MySQL Nginx Starter</h3>
-  <p align="center">
-    Project Starter For Web Application Development with Laravel, MySQL, Nginx, and Docker.
-    <br />
-  </p>
-</div>
-
-<div align="center">
-
-  <a href="">[![Contributors][contributors-shield]][contributors-url]</a>
-  <a href="">[![Stargazers][stars-shield]][stars-url]</a>
-  <a href="">[![Issues][issues-shield]][issues-url]</a>
-
-</div>
-
 <!-- ABOUT THE PROJECT -->
 ## Features
 
@@ -85,19 +66,3 @@ Follow the instructions below to set up your project.
 - Right now, I will postpone upgrading to PHP 8.3 because the PHP Plugin in Prettier is not supported yet. [Check the issues here](https://github.com/prettier/plugin-php/issues/2299).
 - Don't forget to run ```npm run format``` inside your php container or run ```make code-format``` before you push your code.
 - Don't forget to run ```php artisan test``` inside your php container or run ```make code-test``` before you push your code.
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
-[contributors-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
-[forks-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/network/members
-[stars-shield]: https://img.shields.io/github/stars/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
-[stars-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
-[issues-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/issues
-[license-shield]: https://img.shields.io/github/license/ishaqadhel/docker-laravel-mysql-nginx-starter.svg?style=for-the-badge
-[license-url]: https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
