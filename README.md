@@ -22,12 +22,6 @@ Follow the instructions below to set up your project.
 
 - Download and Install [Docker](https://docs.docker.com/engine/install/)
 
-### Clone This Template For Your Project
-
-- By Clicking Use This Template Button or You can Click [Here](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/generate)
-
-![image](https://user-images.githubusercontent.com/49280352/156305925-c7e3f2f2-c458-4b0b-ad1c-32fcaec50e1d.png)
-
 <!-- USAGE EXAMPLES -->
 ## Run App With GNU Make (UNIX Based OS: MacOS, Linux)
 
