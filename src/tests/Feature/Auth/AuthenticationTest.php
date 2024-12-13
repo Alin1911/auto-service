@@ -58,6 +58,8 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $user->is_active = 1;
+        $user->save();
         $this->actingAs($user);
 
         $response = $this->get('/dashboard');

@@ -14,7 +14,8 @@ class ProfileTest extends TestCase
     public function test_profile_page_is_displayed(): void
     {
         $user = User::factory()->create();
-
+        $user->is_active = 1;
+        $user->save();
         $response = $this->actingAs($user)->get('/profile');
 
         $response
