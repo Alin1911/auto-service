@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Service;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
@@ -13,10 +14,13 @@ class UserManagement extends Component
 
     public $permissions = [];
     public $selectedUser = null;
-    public $allPermissions = []; 
+    public $allPermissions = [];
+    public $services = [];
+    public $service_id = null;
 
     public function mount()
     {
+        $this->services = Service::all();
         $this->allPermissions = Permission::all();
     }
 
@@ -24,7 +28,7 @@ class UserManagement extends Component
     {
         $users = User::query()
             ->paginate(10);
-    
+
         return view('livewire.user-management', compact('users'));
     }
 
@@ -32,19 +36,30 @@ class UserManagement extends Component
     {
         $this->selectedUser = User::find($userId);
 
-        $this->permissions = $this->selectedUser->permissions->pluck('id')->toArray();
+        if ($this->selectedUser) {
+            $this->permissions = $this->selectedUser->permissions->pluck('id')->toArray();
+            $this->service_id = $this->selectedUser->service_id;
+        }
     }
 
     public function updatePermissions()
     {
         if ($this->selectedUser) {
+            $this->updateService();
             $permissions = Permission::whereIn('id', $this->permissions)->get();
-    
+
             $this->selectedUser->syncPermissions($permissions);
-    
+
             session()->flash('message', 'Permisiunile au fost actualizate!');
-    
+
             $this->deselectUser();
+        }
+    }
+
+    public function updateService()
+    {
+        if ($this->selectedUser) {
+            $this->selectedUser->update(['service_id' => $this->service_id ? $this->service_id : null]);
         }
     }
 

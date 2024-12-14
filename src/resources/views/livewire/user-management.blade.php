@@ -42,31 +42,43 @@
     </div>
 
     @if ($selectedUser)
-        <div class="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4">Permisiuni pentru {{ $selectedUser->email }}</h3>
-            <form wire:submit.prevent="updatePermissions">
-                <div class="space-y-4">
-                    @foreach ($allPermissions as $permission)
-                        <div class="flex items-center">
-                            <input type="checkbox" wire:model="permissions" value="{{ $permission->id }}"
-                                id="permissions{{ $permission->id }}"
-                                class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <label for="permissions{{ $permission->id }}" class="ml-2 text-gray-700">
-                                {{ $permission->name }}
-                            </label>
-                        </div>
+    <div class="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-4">Detalii utilizator pentru {{ $selectedUser->email }}</h3>
+        <form wire:submit.prevent="updatePermissions">
+            <div class="space-y-4">
+                <h4 class="text-gray-700">Permisiuni:</h4>
+                @foreach ($allPermissions as $permission)
+                    <div class="flex items-center">
+                        <input type="checkbox" wire:model="permissions" value="{{ $permission->id }}"
+                            id="permissions{{ $permission->id }}"
+                            class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                        <label for="permissions{{ $permission->id }}" class="ml-2 text-gray-700">
+                            {{ $permission->name }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+    
+            <div class="mt-4">
+                <h4 class="text-gray-700">Serviciu:</h4>
+                <select wire:model="service_id" class="w-full mt-2 p-2 border border-gray-300 rounded">
+                    <option value="">Selectează un serviciu</option>
+                    @foreach ($services as $service)
+                        <option value="{{ $service->id }}">{{ $service->name }}</option>
                     @endforeach
-                </div>
-                <div class="mt-4">
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
-                        Salvează Permisiuni
-                    </button>
-                    <button type="button" wire:click="deselectUser"
-                        class="w-full mt-2 bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600">
-                        Anulează
-                    </button>
-                </div>
-            </form>
-        </div>
+                </select>
+            </div>
+    
+            <div class="mt-4">
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+                    Salvează Permisiuni și Serviciu
+                </button>
+                <button type="button" wire:click="deselectUser"
+                    class="w-full mt-2 bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600">
+                    Anulează
+                </button>
+            </div>
+        </form>
+    </div>
     @endif
 </div>
