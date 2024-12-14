@@ -6,10 +6,13 @@ use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Vehicle;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    use AuthorizesRequests;
+
     public function create()
     {
         $services = Service::all();
@@ -24,39 +27,41 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::findOrFail($id);
+        $this->authorize('update', $appointment);
         return view('appointments.show', compact('appointment'));
     }
 
     public function index()
     {
         $user = auth()->user();
-
-        if ($user->role === 'responsabil_service') {
-            $appointments = Appointment::where('service_id', $user->service_id)->get();
-        } else {
-            $appointments = Appointment::where('user_id', $user->id)->get();
-        }
-
+        $appointments = Appointment::where('user_id', $user->id)->get();
         return view('appointments.index', compact('appointments'));
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $appointment = Appointment::findOrFail($id);
+        $this->authorize('update', $appointment);
         $services = Service::all();
-        return view('appointments.edit', compact('appointment', 'services'));
+        $fromService = $request->get('from_service', false);
+        return view('appointments.edit', compact('appointment', 'services', 'fromService'));
     }
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $appointment = Appointment::findOrFail($id);
+        $this->authorize('update', $appointment);
         $appointment->delete();
+        if($request->has('from_service')){
+            return redirect()->route('service.appointments')->with('success', 'Appointment deleted successfully!');
+        }
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully!');
     }
 
     public function update($id, Request $request)
     {
         $appointment = Appointment::findOrFail($id);
+        $this->authorize('update', $appointment);
     
         $request->validate([
             'service_id' => 'required|exists:services,id',
@@ -86,6 +91,9 @@ class AppointmentController extends Controller
         }
     
         $appointment->save();
+        if($request->has('from_service')){
+            return redirect()->route('service.appointments')->with('success', 'Programarea a fost actualizată cu succes!');
+        }
     
         return redirect()->route('appointments.index')->with('success', 'Programarea a fost actualizată cu succes!');
     }

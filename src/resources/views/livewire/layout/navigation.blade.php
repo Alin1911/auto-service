@@ -44,6 +44,13 @@ new class extends Component
                         {{ __('My Appointments') }}
                     </x-nav-link>
                 </div>
+                @can('viewAny', \App\Models\User::class)
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="/service/appointments" :active="request()->routeIs('service.appointments')" wire:navigate>
+                        {{ __('Service Appointments') }}
+                    </x-nav-link>
+                </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->

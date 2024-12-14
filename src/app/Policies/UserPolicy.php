@@ -13,7 +13,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        if($user->hasRole('admin')){
+        if($user->hasPermissionTo('modify_user_status')){
             return true;
         }
         return false;

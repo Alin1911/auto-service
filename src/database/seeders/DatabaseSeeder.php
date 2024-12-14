@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $service = Service::create(['name' => 'Service Slatina']);
         Service::create(['name' => 'Service Cluj']);
         Service::create(['name' => 'Service Bucuresti']);
-
+    
         $user = new User();
         $user->name = "Test User";
         $user->email = "test@example.com";
@@ -27,15 +27,18 @@ class DatabaseSeeder extends Seeder
         $user->is_active = 1;
         $user->service_id = $service->id;
         $user->save();
-
-        Role::create(['name' => 'client']);
-        Role::create(['name' => 'responsabil_service']);
-        Role::create(['name' => 'admin']);
-
-
-        Permission::create(['name' => 'modify_user_status']);
-        Permission::create(['name' => 'manage_appointments']);
-
+    
+        $clientRole = Role::create(['name' => 'client']);
+        $responsabilServiceRole = Role::create(['name' => 'responsabil_service']);
+        $adminRole = Role::create(['name' => 'admin']);
+    
+        $modifyUserPermission = Permission::create(['name' => 'modify_user_status']);
+        $manageAppointmentsPermission = Permission::create(['name' => 'manage_appointments']);
+    
+        $responsabilServiceRole->givePermissionTo('manage_appointments');
+        $adminRole->givePermissionTo(['modify_user_status', 'manage_appointments']);
+    
         $user->assignRole('admin');
     }
+    
 }

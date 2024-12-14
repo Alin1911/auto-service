@@ -7,6 +7,9 @@
                 <form method="POST" action="{{ route('appointments.update', $appointment->id) }}">
                     @csrf
                     @method('PUT')
+                    @if($fromService)
+                        <input type="hidden" name="from_service" value=1>
+                    @endif
 
                     <div class="mb-4">
                         <label for="service_id" class="block text-gray-700 font-medium">Service</label>
