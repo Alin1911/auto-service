@@ -1,62 +1,33 @@
-<!-- ABOUT THE PROJECT -->
-## Features
+Configurarea și utilizarea aplicației
 
-* [Docker](https://www.docker.com/)
-* [Dockerfile with Alpine](https://hub.docker.com/_/alpine)
-* [Nginx](https://www.nginx.com)
-* [Laravel 11](https://laravel.com/)
-* [MySQL](https://www.mysql.com/)
-* [PHP 8.2](https://nodejs.org)
-* [Node](https://nodejs.org)
-* [NPM](https://www.npmjs.com)
-* [PHP Prettier](https://github.com/prettier/plugin-php)
-* [Github Action To Run Prettier Check](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/actions)
-* [Github Action To Run PHP Unit Test](https://github.com/ishaqadhel/docker-laravel-mysql-nginx-starter/actions)
+Rularea aplicației
+Porniți aplicația cu Docker, migrarea bazei de date și popularea acesteia:
 
-<!-- GETTING STARTED -->
-## Getting Started
+Rulați comanda următoare pentru a construi și porni toate containerele Docker, împreună cu configurarea Laravel, migrarea bazei de date și popularea acesteia: make run-app-with-setup-db
+Generați fișierele necesare JS și CSS:
 
-Follow the instructions below to set up your project.
+Dacă fișierele JavaScript și CSS nu au fost deja generate, rulați: npm run build
+Utilizator Admin Implicit:
 
-### Prerequisites
+După ce aplicația pornește, se va crea automat un utilizator cu adresa de email test@example.com și parola test. Acest utilizator va avea rolul admin și permisiuni complete, inclusiv service_id 1.
+Crearea unui cont sau adăugarea unei rezervări:
 
-- Download and Install [Docker](https://docs.docker.com/engine/install/)
+Puteți să vă creați propriul cont sau să adăugați o rezervare la un serviciu. Dacă alegeți să creați un cont, folosiți utilizatorul test@example.com pentru a activa contul.
+Gestionarea Utilizatorilor:
 
-<!-- USAGE EXAMPLES -->
-## Run App With GNU Make (UNIX Based OS: MacOS, Linux)
+În meniul din stânga, veți găsi secțiunea User Management, unde puteți vizualiza toți utilizatorii.
+Gestionarea Rezervărilor:
 
-- `make run-app-with-setup` : build docker and start all docker containers with Laravel setup
-- `make run-app-with-setup-db` : build docker and start all docker containers with Laravel setup + database migration and seeder
-- `make run-app` : start all docker container
-- `make kill-app` : kill all docker container
-- `make enter-nginx-container` : enter docker nginx container
-- `make enter-php-container` : enter docker php container
-- `make enter-mysql-container` : enter docker mysql container
-- `make flush-db` : run php migrate fresh command
-- `make flush-db-with-seeding` : run php migrate fresh command with seeding
-- `make code-format-check` : run npm command to run prettier to check your code
-- `make code-format`: run npm command to run prettier to format your code
-- `make code-test`: run php artisan test command
+În bara de navigare veți găsi linkuri către rezervările făcute de utilizatorul conectat.
+Dacă utilizatorul este managerul unui serviciu, acesta va putea vizualiza și edita rezervările făcute de alți utilizatori.
+Testarea aplicației:
 
-<!-- USAGE EXAMPLES -->
-## Run App Manually
+Pentru a rula testele, utilizați comanda: php artisan test
+Atenție: Rularea testelor va șterge baza de date. O puteți reinițializa rulând: php artisan db:seed
+Testarea API-ului REST cu Postman:
 
-![preview-docker-laravel](https://user-images.githubusercontent.com/49280352/131224609-401fcd2b-a815-49f2-8164-b6d9b77df87c.gif)
+Am atașat o colecție Postman pentru testarea API-ului REST. Pentru a genera un token pentru utilizatorul test@example.com, rulați: php artisan user:token 1
+API-ul de Rezervări:
 
-- Create .env file for the Laravel environment from .env.example on src folder
-- Run command ```docker-compose build``` on your terminal
-- Run command ```docker-compose up -d``` on your terminal
-- Run command ```composer install``` on your terminal after going into the php container on docker
-- Run command ```docker exec -it php /bin/sh``` on your terminal
-- Run command ```chmod -R 777 storage``` on your terminal after going into the php container on docker
-- If app:key still empty on .env run ```php artisan key:generate``` on your terminal after going into the php container on docker
-- To run artisan commands like migrate, etc. go to php container using ```docker exec -it php /bin/sh```
-- Go to http://localhost:8001 or any port you set to open Laravel
-
-## Notes
-
-- If you encounter a permission error when running Docker, try running it as an administrator or using ```sudo``` in Linux.
-- Check the summary of new features in Laravel 11 [here](https://laraveldaily.com/post/laravel-11-main-new-features-changes) or on the official page [here](https://laravel.com/docs/11.x/releases).
-- Right now, I will postpone upgrading to PHP 8.3 because the PHP Plugin in Prettier is not supported yet. [Check the issues here](https://github.com/prettier/plugin-php/issues/2299).
-- Don't forget to run ```npm run format``` inside your php container or run ```make code-format``` before you push your code.
-- Don't forget to run ```php artisan test``` inside your php container or run ```make code-test``` before you push your code.
+Nu aveți nevoie de token pentru a adăuga o rezervare.
+Totuși, pentru a vizualiza rezervările pentru un anumit serviciu, veți avea nevoie de un token generat pentru un utilizator cu service_id corespunzător.

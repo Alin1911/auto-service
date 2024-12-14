@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
+use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
@@ -16,6 +17,7 @@ class ProfileTest extends TestCase
         $user = User::factory()->create();
         $user->is_active = 1;
         $user->save();
+        $modifyUserPermission = Permission::create(['name' => 'modify_user_status']);
         $response = $this->actingAs($user)->get('/profile');
 
         $response

@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
+			"name": "Get service Appointments",
 			"request": {
 				"method": "GET",
 				"header": []

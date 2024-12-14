@@ -11,11 +11,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 
 Route::middleware(['auth', CheckUserIsActive::class])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
-
     Route::view('profile', 'profile')
         ->name('profile');
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');

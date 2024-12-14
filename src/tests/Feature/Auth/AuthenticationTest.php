@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
+use Spatie\Permission\Models\Permission;
 
 class AuthenticationTest extends TestCase
 {
@@ -60,8 +61,10 @@ class AuthenticationTest extends TestCase
 
         $user->is_active = 1;
         $user->save();
-        $this->actingAs($user);
+        $modifyUserPermission = Permission::create(['name' => 'modify_user_status']);
 
+        $this->actingAs($user);
+        
         $response = $this->get('/dashboard');
 
         $response
@@ -72,7 +75,7 @@ class AuthenticationTest extends TestCase
     public function test_users_can_logout(): void
     {
         $user = User::factory()->create();
-
+        $modifyUserPermission = Permission::create(['name' => 'modify_user_status']);
         $this->actingAs($user);
 
         $component = Volt::test('layout.navigation');
