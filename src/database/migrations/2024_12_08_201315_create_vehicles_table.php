@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('chassis_series')->unique();
-            $table->year('manufacture_year');
+            $table->integer('manufacture_year');
             $table->string('engine');
             $table->timestamps();
         });

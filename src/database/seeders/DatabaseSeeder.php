@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Service;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,17 +16,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $service = Service::create(['name' => 'Service Slatina']);
+        Service::create(['name' => 'Service Cluj']);
+        Service::create(['name' => 'Service Bucuresti']);
 
-        $user = User::factory()->create([
-            "name" => "Test User",
-            "email" => "test2@example.com",
-        ]);
+        $user = new User();
+        $user->name = "Test User";
+        $user->email = "test@example.com";
+        $user->password = "test";
+        $user->is_active = 1;
+        $user->service_id = $service->id;
+        $user->save();
 
         Role::create(['name' => 'client']);
         Role::create(['name' => 'responsabil_service']);
         Role::create(['name' => 'admin']);
-    
+
+
         Permission::create(['name' => 'modify_user_status']);
         Permission::create(['name' => 'manage_appointments']);
 

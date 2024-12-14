@@ -17,4 +17,16 @@ class Service extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+    public function getCostAttribute()
+    {
+
+        switch ($this->name) {
+            case 'ITP':
+                return 150;
+            case 'Reparații':
+                return 300;
+            default:
+                return 100;
+        }
+    }
 }

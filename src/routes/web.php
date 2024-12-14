@@ -18,9 +18,10 @@ Route::middleware(['auth', CheckUserIsActive::class])->group(function () {
 
     Route::view('profile', 'profile')
         ->name('profile');
-    Route::get('/appointments/{appointment}', [AppointmentController::class, 'show'])->name('appointments.show');
-    Route::delete('/appointments/{appointment}/cancel', [AppointmentController::class, 'cancel'])->name('appointments.cancel');
-    Route::resource('appointments', AppointmentController::class);
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::get('/appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::delete('/appointments/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+    Route::put('/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::get('services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
