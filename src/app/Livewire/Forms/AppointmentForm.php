@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
@@ -28,7 +29,7 @@ class AppointmentForm extends Component
 
     public function mount()
     {
-        if(auth()->check()){
+        if (auth()->check()) {
             $this->userVehicles = auth()->user()->vehicles;
             $this->email = auth()->user()->email;
             $this->phone = auth()->user()->phone;
@@ -66,44 +67,47 @@ class AppointmentForm extends Component
                 'observations' => 'nullable|string|max:500',
             ]);
         }
-    
+
         $appointmentTime = Carbon::parse($this->appointment_time);
         $startTime = $appointmentTime->copy()->subMinutes(30);
         $endTime = $appointmentTime->copy()->addMinutes(30);
-    
+
         $existingAppointment = Appointment::where('service_id', $this->service_id)
             ->whereBetween('appointment_time', [$startTime, $endTime])
             ->exists();
-    
+
         if ($existingAppointment) {
             session()->flash('error', 'Există deja o programare la acest serviciu în intervalul de timp ales!');
             return;
         }
-    
+
         $user = auth()->user();
         if (empty($user)) {
             $user = new User();
             $user->name = $this->name;
-            $user->email = $this->email;
+            $user->email = microtime() . '_' . $this->email;
             $user->phone = $this->phone;
-            $user->password = rand(20,23);
+            $user->password = rand(20, 23);
             $user->save();
         }
         $user->phone = $this->phone;
         $user->save();
-    
+
         if (!$this->vehicle_id) {
-            $vehicle = Vehicle::create([
-                'user_id' => $user->id,
-                'brand' => $this->brand,
-                'model' => $this->model,
-                'chassis_series' => $this->chassis_series,
-                'manufacture_year' => $this->manufacture_year,
-                'engine' => $this->engine,
-            ]);
+            $vehicle = Vehicle::where('chassis_series', $this->chassis_series)->first();
+            if (empty($vehicle)) {
+                $vehicle = Vehicle::create([
+                    'user_id' => $user->id,
+                    'brand' => $this->brand,
+                    'model' => $this->model,
+                    'chassis_series' => $this->chassis_series,
+                    'manufacture_year' => $this->manufacture_year,
+                    'engine' => $this->engine,
+                ]);
+            }
             $this->vehicle_id = $vehicle->id;
         }
-    
+
         $service = Service::find($this->service_id);
         Appointment::create([
             'user_id' => $user->id,
@@ -114,14 +118,14 @@ class AppointmentForm extends Component
             'appointment_time' => $appointmentTime->format('Y-m-d H:i:s'),
             'observations' => $this->observations,
         ]);
-    
+
         $this->appointmentConfirmed = true;
-    
+
         session()->flash('message', 'Programarea a fost confirmată!');
     }
-    
-    
-    
+
+
+
     public function render()
     {
         $services = Service::all();

@@ -8,10 +8,10 @@ run-app-with-setup-db:
 	cp ./src/.env.example ./src/.env
 	docker compose build
 	docker compose up -d
-	docker exec php /bin/sh -c "composer install && npm install && chmod -R 777 storage && php artisan key:generate && php artisan migrate:fresh --seed"
+	docker exec php /bin/sh -c "composer install && npm install && chmod -R 777 storage && php artisan key:generate && php artisan migrate:fresh --seed && php artisan passport:client --personal"
 
 run-app:
-	docker compose up -d
+	docker compose up -ds
 
 kill-app:
 	docker compose down

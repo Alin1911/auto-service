@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\VehicleController;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/appointments', [AppointmentController::class, 'store']);
-    Route::get('/service-appointments', [AppointmentController::class, 'index']);
+Route::post('/appointments', [AppointmentController::class, 'store']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/service/appointments', [ServiceController::class, 'index']);
 });
