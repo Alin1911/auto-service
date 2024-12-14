@@ -7,7 +7,9 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 
 
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 
 Route::middleware(['auth', CheckUserIsActive::class])->group(function () {

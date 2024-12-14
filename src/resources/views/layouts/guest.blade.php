@@ -18,10 +18,17 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/" wire:navigate>
+            <!-- Container pentru logo si butoane, cu padding pe laturi -->
+            <div class="w-full flex items-center justify-center"> <!-- Am adăugat px-6 pentru mai mult spațiu pe laturi -->
+                <!-- Logo la stânga, cu padding pe stânga -->
+                <a href="/" wire:navigate class="flex items-center mx-10">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
+
+                <!-- Butoane la dreapta, cu un mic margin-left pentru spațiu -->
+                <div class="mx-10">
+                    <livewire:welcome.navigation />
+                </div>
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
