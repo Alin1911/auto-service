@@ -29,8 +29,8 @@
             @endif
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="py-10">
+                @yield('content')
             </main>
         </div>
         @livewireScripts

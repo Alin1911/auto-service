@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             "name" => "Test User",
-            "email" => "test@example.com",
+            "email" => "test2@example.com",
         ]);
 
         Role::create(['name' => 'client']);
@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
     
         Permission::create(['name' => 'modify_user_status']);
         Permission::create(['name' => 'manage_appointments']);
+
+        $user->assignRole('admin');
     }
 }

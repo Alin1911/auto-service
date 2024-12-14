@@ -56,7 +56,13 @@ new class extends Component
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+
+                        @can('viewAny', \App\Models\User::class)
+                            <x-dropdown-link :href="route('users.index')" :active="request()->routeIs('users.index')" wire:navigate>
+                                {{ __('User Management') }}
+                            </x-dropdown-link>
+                        @endcan
+
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
                                 {{ __('Log Out') }}
